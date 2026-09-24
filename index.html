@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akbar Family — Video katalog (demo)</title>
+  <meta name="description" content="Akbar Family — noldan yozilgan o'quv video katalogi: kirish, admin/user, video + prevyu yuklash.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Yuqori panel -->
+  <header class="sayt-bosh">
+    <div class="konteyner bosh-ich">
+      <a class="logotip" href="#/">Akbar <span>Family</span></a>
+      <nav class="navigatsiya">
+        <a href="#/" data-yonalish="bosh">Bosh sahifa</a>
+        <a href="#/seriallar" data-yonalish="seriallar">Seriallar</a>
+        <a href="#/videolar" data-yonalish="videolar">Videolar</a>
+        <a href="#/manga" data-yonalish="manga">Kitoblar</a>
+        <a href="#/studiya" data-yonalish="studiya">Studiya</a>
+        <a href="#/chat" data-yonalish="chat">Chat</a>
+        <a href="#/videolar" id="adminNav" style="display:none">Admin panel</a>
+      </nav>
+      <div class="bosh-ong">
+        <input id="qidiruvInput" class="qidiruv" type="search" placeholder="Video qidirish...">
+        <button id="kirishBtn" class="tugma tugma-asosiy kichik" type="button">Kirish</button>
+        <div id="foydalanuvchiBlok" style="display:none">
+          <span id="foydalanuvchiNomi"></span>
+          <span id="rolBelgisi" class="rol"></span>
+          <button id="chiqishBtn" class="tugma tugma-ikkilamchi kichik" type="button">Chiqish</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Tanishtiruv -->
+    <section class="qahramon sahifa" data-sahifa="bosh">
+      <div class="konteyner qahramon-ich">
+        <p class="nishon">Akbar Family • Oilaviy video arxivi</p>
+        <h1>Oilaviy videolarni<br>bitta joyda saqlang va ko'ring</h1>
+        <p class="qahramon-matn">Admin kod: <b>admin / Akbarali09</b>. Foydalanuvchilar login-parol, telefon raqam yoki Google akkaunt orqali kiradi.</p>
+        <div class="qahramon-tugmalar">
+          <a class="tugma tugma-asosiy" href="#/videolar">Videolarni ko'rish →</a>
+          <a class="tugma tugma-ikkilamchi" href="#/seriallar">Seriallar</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin panel (faqat admin ko'radi) -->
+    <section id="adminBolim" class="bolim sahifa" data-sahifa="videolar" style="display:none">
+      <div class="konteyner">
+        <div class="admin-quti">
+          <h2>Admin panel — video + prevyu qo'shish</h2>
+          <p class="eslatma">Faqat <b>admin</b> ko'radi. <b>Diqqat:</b> fayl yuklasangiz video faqat <b>shu qurilma/brauzerda</b> ko'rinadi. Boshqalarga (GitHub Pages mehmonlariga) ko'rinishi uchun <b>YouTube havola</b> yoki to'g'ridan-to'g'ri <b>mp4/Drive havola</b> qo'ying. Firebase ulansa (FIREBASE-QOLLANMA.txt) — fayllar ham hammaga ko'rinadi.</p>
+          <p id="dbHolat" class="eslatma">Baza holati tekshirilmoqda...</p>
+          <div class="prevyu-quti">
+            <p class="eslatma"><b>Saytga yuklash (bulut baza):</b> Firebase kalitlarini bir marta shu yerga qo'yasiz — keyin yuklagan har bir narsa saytga yoziladi, hamma ko'radi va skachat qiladi.</p>
+            <div class="video-forma">
+              <div class="forma-qator">
+                <input id="cApiKey" placeholder="apiKey">
+                <input id="cAuthDomain" placeholder="authDomain">
+              </div>
+              <div class="forma-qator">
+                <input id="cProjectId" placeholder="projectId">
+                <input id="cStorageBucket" placeholder="storageBucket">
+              </div>
+              <div class="forma-qator">
+                <input id="cSenderId" placeholder="messagingSenderId">
+                <input id="cAppId" placeholder="appId">
+              </div>
+              <input id="cAdminEmail" type="email" placeholder="Admin Gmail (sizniki)">
+              <div class="karta-tugmalar">
+                <button id="bulutSaqlash" class="tugma tugma-asosiy kichik" type="button">Saqlash va ulash</button>
+                <button id="bulutNusxa" class="tugma tugma-ikkilamchi kichik" type="button">GitHub uchun nusxalash</button>
+                <button id="bulutUzish" class="tugma tugma-xavf kichik" type="button">Uzish</button>
+              </div>
+              <p id="bulutXabar" class="eslatma"></p>
+            </div>
+          </div>
+          <form id="videoForma" class="video-forma">
+            <input id="vSarlavha" type="text" placeholder="Sarlavha: masalan, Oilaviy sayohat 1-qism" required maxlength="80">
+            <div class="forma-qator">
+              <select id="vJanr">
+                <option>Oilaviy</option>
+                <option>Sayohat</option>
+                <option>Tabrik</option>
+                <option>Bolalar</option>
+                <option>Hujjatli</option>
+                <option>Boshqa</option>
+              </select>
+              <input id="vUrl" type="url" placeholder="Video URL: YouTube yoki https://.../video.mp4">
+            </div>
+            <div class="forma-qator">
+              <select id="vPapka">
+                <option value="">Papkasiz (alohida video)</option>
+              </select>
+              <input id="vYangiPapka" type="text" placeholder="Yangi papka: masalan, Sevimli serial (12 qism)" maxlength="80">
+            </div>
+            <div class="forma-qator">
+              <input id="vQism" type="number" min="1" max="999" placeholder="Boshlang'ich qism (bo'sh bo'lsa avtomatik)">
+              <input id="vPapkaTavsif" type="text" placeholder="Yangi papka tavsifi (ixtiyoriy)" maxlength="150">
+            </div>
+            <div class="forma-qator">
+              <input id="vFasl" type="number" min="1" max="99" placeholder="Fasl raqami (bo'sh bo'lsa 1)">
+              <p class="eslatma">Ko'p faslli serial bo'lsa yozing — playerda "1-fasl" tugmalari chiqadi.</p>
+            </div>
+            <label class="fayl-yuklash">Video fayllar (bir nechta tanlash mumkin — har biri alohida qism bo'ladi):
+              <input id="vFayl" type="file" accept="video/*" multiple>
+            </label>
+            <div class="forma-qator">
+              <input id="vPrevyuUrl" type="url" placeholder="Prevyu URL (rasm): https://.../rasm.jpg">
+              <label class="fayl-yuklash">Prevyu rasm (ixtiyoriy, avtomatik kichiklanadi):
+                <input id="vPrevyuFayl" type="file" accept="image/*">
+              </label>
+            </div>
+            <div class="prevyu-quti">
+              <p class="eslatma">Prevyu ko'rinishi:</p>
+              <img id="prevyuKorik" alt="Prevyu oldindan ko'rinishi">
+            </div>
+            <textarea id="vTavsif" rows="2" placeholder="Qisqa tavsif (ixtiyoriy)" maxlength="300"></textarea>
+            <button class="tugma tugma-asosiy" type="submit">Videoni qo'shish</button>
+            <p id="formaXabar" class="eslatma"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seriallar: qismlar bitta papkada -->
+    <section id="papkalar" class="bolim sahifa" data-sahifa="bosh seriallar">
+      <div class="konteyner">
+        <div class="bolim-bosh">
+          <h2>Seriallar (papkalar)</h2>
+          <p id="papkaSoni">Yuklanmoqda...</p>
+        </div>
+        <div id="papkaPanjara" class="panjara"></div>
+        <div id="papkaKorinish" class="admin-quti" style="display:none">
+          <button id="papkaOrqaga" class="tugma tugma-ikkilamchi kichik" type="button">← Barcha papkalar</button>
+          <h2 id="papkaNomi"></h2>
+          <p id="papkaTavsifMatn" class="eslatma"></p>
+          <div id="qismRoyxat" class="jadval-royxat"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Katalog -->
+    <section id="katalog" class="bolim sahifa" data-sahifa="bosh videolar">
+      <div class="konteyner">
+        <div class="bolim-bosh qator">
+          <div>
+            <h2>Barcha videolar</h2>
+            <p id="soniMatn">Yuklanmoqda...</p>
+          </div>
+        </div>
+        <div id="panjara" class="panjara"></div>
+      </div>
+    </section>
+
+    <!-- Manga: admin ruscha qo'shadi, sayt o'zbekchaga tarjima qiladi -->
+    <section id="manga" class="bolim sahifa" data-sahifa="bosh manga">
+      <div class="konteyner">
+        <div class="bolim-bosh qator">
+          <div>
+            <h2>Kitoblar va Manga</h2>
+            <p id="mangaSoni">Yuklanmoqda...</p>
+          </div>
+          <button id="mangaTilBtn" class="tugma tugma-ikkilamchi kichik" type="button">Til: O'zbekcha</button>
+        </div>
+        <div id="mangaAdmin" class="admin-quti" style="display:none">
+          <h2>Manga qo'shish (rus tilida yozing)</h2>
+          <p class="eslatma">Faqat <b>admin</b> ko'radi. Ruscha yozsangiz ham sayt o'quvchiga avtomatik o'zbekchasini ko'rsatadi.</p>
+          <form id="mangaForma" class="video-forma">
+            <input id="mSarlavha" type="text" placeholder="Название: masalan, Тени города" required maxlength="120">
+            <div class="forma-qator">
+              <select id="mJanr">
+                <option>Фэнтези</option>
+                <option>Приключения</option>
+                <option>Драма</option>
+                <option>Романтика</option>
+                <option>Боевик</option>
+                <option>Другое</option>
+              </select>
+              <input id="mMuallif" type="text" placeholder="Автор (ixtiyoriy)" maxlength="60">
+            </div>
+            <div class="forma-qator">
+              <select id="mMangaPapka">
+                <option value="">Papkasiz (alohida kitob)</option>
+              </select>
+              <input id="mYangiMangaPapka" type="text" placeholder="Yangi papka: masalan, Qorong'u shahar to'plami" maxlength="80">
+            </div>
+            <textarea id="mTavsif" rows="2" placeholder="Описание на русском (ixtiyoriy)" maxlength="1000"></textarea>
+            <label class="fayl-yuklash">Sahifa rasmlari (bir nechta tanlash mumkin):
+              <input id="mFayllar" type="file" accept="image/*" multiple>
+            </label>
+            <label class="fayl-yuklash">Yoki bitta PDF kitob yuklang (rasmlar o'rniga):
+              <input id="mPdf" type="file" accept="application/pdf">
+            </label>
+            <label class="fayl-yuklash">Muqova rasmi (PDF uchun, ixtiyoriy — avtomatik kichiklanadi):
+              <input id="mMuqovaFayl" type="file" accept="image/*">
+            </label>
+            <textarea id="mUrllar" rows="2" placeholder="Yoki rasm URL lar (har qatorda bitta): https://..."></textarea>
+            <button class="tugma tugma-asosiy" type="submit">Mangani qo'shish</button>
+            <p id="mangaXabar" class="eslatma"></p>
+          </form>
+        </div>
+        <div id="mangaPanjara" class="panjara"></div>
+        <div class="bolim-bosh" style="margin-top:24px">
+          <h2>Kitob papkalari</h2>
+          <p id="mangaPapkaSoni">Yuklanmoqda...</p>
+        </div>
+        <div id="mangaPapkaPanjara" class="panjara"></div>
+        <div id="mangaPapkaKorinish" class="admin-quti" style="display:none">
+          <button id="mangaPapkaOrqaga" class="tugma tugma-ikkilamchi kichik" type="button">← Barcha papkalar</button>
+          <h2 id="mangaPapkaNomi"></h2>
+          <div id="mangaPapkaRoyxat" class="jadval-royxat"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jadval -->
+    <section id="jadval" class="bolim sahifa" data-sahifa="jadval">
+      <div class="konteyner">
+        <div class="bolim-bosh">
+          <h2>Chiqish jadvali</h2>
+          <p>Yangi videolar rejasi — demo ma'lumot.</p>
+        </div>
+        <div class="kunlar" id="kunlar">
+          <button class="kun faol" type="button">Bugun</button>
+          <button class="kun" type="button">Ertaga</button>
+          <button class="kun" type="button">Chorshanba</button>
+          <button class="kun" type="button">Payshanba</button>
+          <button class="kun" type="button">Juma</button>
+          <button class="kun" type="button">Shanba</button>
+          <button class="kun" type="button">Yakshanba</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Foto-studiya: rasm yuklash + avtomatik kostyum -->
+    <section id="studiya" class="bolim sahifa" data-sahifa="studiya">
+      <div class="konteyner">
+        <div class="admin-quti">
+          <h2>Foto-studiya — bolaga kostyum kiygizish</h2>
+          <p class="eslatma">Oddiy rasm yuklang → yuz oval shaklda kesiladi → pastdan realistik kostyum kiygiziladi. Tayyor 6 ta kiyim bor, yoki o'z kiyimingiz rasmini yuklashingiz mumkin.</p>
+          <div class="studiya-ich">
+            <div class="studiya-boshqaruv">
+              <label class="fayl-yuklash">Bola rasmini tanlang:
+                <input id="stFayl" type="file" accept="image/*">
+              </label>
+              <p class="eslatma">Kostyumni tanlang:</p>
+              <div class="kostyum-tanlov">
+                <button class="kun kostyum-btn faol" data-kostyum="1" type="button">Klassik</button>
+                <button class="kun kostyum-btn" data-kostyum="2" type="button">Harbiy</button>
+                <button class="kun kostyum-btn" data-kostyum="3" type="button">Super</button>
+                <button class="kun kostyum-btn" data-kostyum="4" type="button">Malika</button>
+                <button class="kun kostyum-btn" data-kostyum="5" type="button">Smoking</button>
+                <button class="kun kostyum-btn" data-kostyum="6" type="button">Milliy</button>
+              </div>
+              <label class="fayl-yuklash">Yoki o'z kiyimingiz rasmini yuklang (shaffof PNG bo'lsa yaxshi):
+                <input id="stKostyumFayl" type="file" accept="image/*">
+              </label>
+              <label class="slayder">Yuz kattaligi: <input id="stKattalik" type="range" min="60" max="160" value="100"></label>
+              <label class="slayder">Yuz balandligi: <input id="stYuqori" type="range" min="140" max="300" value="210"></label>
+              <label class="slayder">Fon:
+                <select id="stFon">
+                  <option value="kok">Moviy studiya</option>
+                  <option value="oltin">Oltin</option>
+                  <option value="yashil">Yashil</option>
+                  <option value="pushti">Pushti</option>
+                </select>
+              </label>
+              <button id="stYuklabOlish" class="tugma tugma-asosiy" type="button">Rasmni yuklab olish (PNG)</button>
+            </div>
+            <canvas id="stCanvas" width="600" height="750"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chat: admin bilan suhbat (alohida sahifa) -->
+    <section id="chat" class="bolim sahifa" data-sahifa="chat">
+      <div class="konteyner">
+        <div class="bolim-bosh">
+          <h2>Chat — admin bilan suhbat</h2>
+          <p>Savolingizni yozing, admin javob beradi.</p>
+        </div>
+        <div class="admin-quti chat-quti">
+          <div id="chatRoyxat" class="chat-royxat"></div>
+          <p id="chatMehmon" class="eslatma" style="display:none">Yozish uchun <button id="chatKirishBtn" class="tugma tugma-asosiy kichik" type="button">Kirish</button> tugmasini bosing.</p>
+          <form id="chatForma" class="chat-forma" style="display:none">
+            <input id="chatMatn" type="text" placeholder="Xabar yozing..." maxlength="500" autocomplete="off">
+            <button class="tugma tugma-asosiy" type="submit">Yuborish</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Haqida -->
+    <section id="haqida" class="bolim haqida sahifa" data-sahifa="bosh haqida">
+      <div class="konteyner haqida-ich">
+        <h2>Akbar Family qanday ishlaydi?</h2>
+        <p><b>Admin</b> video + prevyu yuklaydi, <b>oddiy foydalanuvchi</b> va mehmon faqat ko'radi. Fayl bilan yuklangan video faqat shu qurilmada ko'rinadi — hammaga ko'rinishi uchun YouTube/mp4 havola qo'ying.</p>
+        <ul>
+          <li>✓ Kirish / Ro'yxatdan o'tish</li>
+          <li>✓ Admin: video URL yoki fayl + prevyu rasm</li>
+          <li>✓ Hamma: katalogda prevyu bilan ko'rish</li>
+          <li>✓ Seriallar: 12 qismli video bitta papkada — bir yuklashda bir nechta qism qo'shish mumkin</li>
+          <li>✓ Foto-studiya: rasm yuklab bolaga kostyum kiygizish</li>
+          <li>✓ Manga/kitob: admin ruscha + rasm yoki PDF qo'shadi, sayt o'zbekchaga tarjima qiladi</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Qismning alohida sahifasi (video + qism tanlash) -->
+    <section id="tomoshaSahifa" class="bolim" style="display:none">
+      <div class="konteyner">
+        <button id="tomoshaOrqaga" class="tugma tugma-ikkilamchi kichik" type="button">← Orqaga</button>
+        <div id="tomoshaSahifaIch"></div>
+      </div>
+    </section>
+
+    <!-- Kitobning alohida sahifasi -->
+    <section id="kitobSahifa" class="bolim" style="display:none">
+      <div class="konteyner">
+        <button id="kitobOrqaga" class="tugma tugma-ikkilamchi kichik" type="button">← Orqaga</button>
+        <div id="kitobSahifaIch"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Kirish / Ro'yxatdan o'tish oynasi -->
+  <div id="authModal" class="modal-fon" style="display:none">
+    <div class="modal">
+      <div class="modal-bosh">
+        <div>
+          <button id="tabKirish" class="tab faol" type="button">Kirish</button>
+          <button id="tabRoyxat" class="tab" type="button">Ro'yxatdan o'tish</button>
+          <button id="tabTelefon" class="tab" type="button">Telefon</button>
+        </div>
+        <button id="authYopish" class="yopish" type="button">✕</button>
+      </div>
+      <form id="kirishForma">
+        <input id="kLogin" type="text" placeholder="Login (masalan: Akbarali)" required>
+        <input id="kParol" type="password" placeholder="Parol" required>
+        <button class="tugma tugma-asosiy" type="submit">Kirish</button>
+        <button id="googleBtn" class="tugma tugma-ikkilamchi" type="button">G Google orqali kirish (demo)</button>
+        <div id="googleMaydon" style="display:none">
+          <input id="gEmail" type="email" placeholder="Gmail manzilingiz: ali@gmail.com">
+          <button id="googleDavom" class="tugma tugma-asosiy" type="button">Davom etish</button>
+        </div>
+        <p class="eslatma"></p>
+      </form>
+      <form id="royxatForma" style="display:none">
+        <input id="rLogin" type="text" placeholder="Yangi login (min 3 harf)" required minlength="3">
+        <input id="rParol" type="password" placeholder="Parol (min 4 harf)" required minlength="4">
+        <button class="tugma tugma-asosiy" type="submit">Hisob yaratish</button>
+        <p class="eslatma">Yangi hisob oddiy foydalanuvchi bo'ladi.</p>
+      </form>
+      <form id="telefonForma" style="display:none">
+        <input id="tTel" type="tel" placeholder="Telefon: +998901234567" required>
+        <button id="tKodYuborish" class="tugma tugma-ikkilamchi" type="button">SMS kod yuborish</button>
+        <p id="demoKod" class="eslatma" style="display:none"></p>
+        <input id="tKod" type="text" placeholder="SMS kod (6 xonali)" maxlength="6">
+        <button class="tugma tugma-asosiy" type="submit">Tasdiqlash va kirish</button>
+        <p class="eslatma">Demo rejim: kod ekranda ko'rinadi. Real SMS uchun server kerak.</p>
+      </form>
+      <p id="authXabar" class="xabar"></p>
+      <div id="recaptcha"></div>
+    </div>
+  </div>
+
+  <!-- Video ko'rish oynasi -->
+  <div id="playerModal" class="modal-fon" style="display:none">
+    <div class="modal keng">
+      <div class="modal-bosh">
+        <b id="playerSarlavha"></b>
+        <button id="playerYopish" class="yopish" type="button">✕</button>
+      </div>
+      <video id="playerVideo" controls playsinline></video>
+      <div id="playerYoutubeWrap" style="display:none">
+        <iframe id="playerYoutube" title="YouTube video" allowfullscreen></iframe>
+      </div>
+      <div id="qismPanel" style="display:none">
+        <p class="qism-sar">QISM TANLASH</p>
+        <b id="qismHozir"></b>
+        <div id="faslQator" class="kunlar"></div>
+        <div class="qism-qidiruv">
+          <input id="qismQidiruv" type="search" placeholder="Qism nomi yoki raqami...">
+        </div>
+        <div id="qismPanjarasi" class="qism-grid"></div>
+      </div>
+      <p id="playerTavsif" class="eslatma"></p>
+    </div>
+  </div>
+
+  <!-- Manga o'qish oynasi -->
+  <div id="mangaModal" class="modal-fon" style="display:none">
+    <div class="modal keng">
+      <div class="modal-bosh">
+        <b id="mangaSarlavha"></b>
+        <button id="mangaYopish" class="yopish" type="button">✕</button>
+      </div>
+      <p id="mangaTavsif" class="eslatma"></p>
+      <img id="mangaSahifa" alt="Manga sahifasi">
+      <iframe id="mangaPdf" title="PDF kitob" style="display:none"></iframe>
+      <div class="manga-boshqaruv">
+        <button id="mangaOld" class="tugma tugma-ikkilamchi kichik" type="button">← Oldingi</button>
+        <span id="mangaSana" class="eslatma"></span>
+        <button id="mangaKey" class="tugma tugma-ikkilamchi kichik" type="button">Keyingi →</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="sayt-oxir">
+    <div class="konteyner oxir-ich">
+      <div>
+        <a class="logotip" href="#/">Akbar <span>Family</span></a>
+        <p>Oilaviy video arxiv — o'quv demosi.</p>
+      </div>
+      <div>
+        <b>Navigatsiya</b>
+        <a href="#/">Bosh sahifa</a>
+        <a href="#/seriallar">Seriallar</a>
+        <a href="#/videolar">Videolar</a>
+        <a href="#/manga">Kitoblar</a>
+        <a href="#/studiya">Studiya</a>
+        <a href="#/chat">Chat</a>
+      </div>
+      <div>
+        <b>Hisob</b>
+        <a href="#" id="profilHavola">Profil / Kirish</a>
+        <a href="#/jadval">Jadval</a>
+      </div>
+      <div>
+        <b>Aloqa</b>
+        <a href="mailto:demo@example.com">demo@example.com</a>
+      </div>
+    </div>
+    <p class="muallif">© 2026 Akbar Family — o'quv loyihasi.</p>
+  </footer>
+
+  <nav class="mobil-menyu">
+    <a href="#/" data-yonalish="bosh">Bosh</a>
+    <a href="#/videolar" data-yonalish="videolar">Videolar</a>
+    <a href="#/manga" data-yonalish="manga">Kitoblar</a>
+    <a href="#/chat" data-yonalish="chat">Chat</a>
+    <a href="#" id="mobilProfil">Profil</a>
+  </nav>
+
+  <script src="firebase-config.js"></script>
+  <script src="cloud.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

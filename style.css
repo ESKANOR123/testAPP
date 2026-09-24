@@ -1,0 +1,1068 @@
+/* Asosiy ranglar va o'lchamlar */
+:root {
+  --fon: #121315;
+  --karta: #1c1e21;
+  --karta-2: #23262b;
+  --matn: #f2f3f5;
+  --matn-och: #a7adb6;
+  --chegara: #2c3036;
+  --urgu: #ff5c39;
+  --urgu-toq: #d94a2c;
+  --radius: 16px;
+  --soya: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Boshlang'ich reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Sahifa asosi */
+body {
+  background: var(--fon);
+  color: var(--matn);
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  padding-bottom: 70px;
+}
+
+/* Markaziy konteyner */
+.konteyner {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+}
+
+/* Yuqori panel */
+.sayt-bosh {
+  position: sticky;
+  top: 0;
+  background: var(--fon);
+  border-bottom: 1px solid var(--chegara);
+  z-index: 10;
+}
+
+.bosh-ich {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 14px 0;
+}
+
+/* Logotip (original) */
+.logotip {
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--matn);
+  text-decoration: none;
+}
+
+.logotip span {
+  color: var(--urgu);
+}
+
+/* Asosiy navigatsiya */
+.navigatsiya {
+  display: flex;
+  gap: 18px;
+  margin-left: 12px;
+}
+
+.navigatsiya a {
+  color: var(--matn-och);
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.navigatsiya a.faol,
+.navigatsiya a:hover {
+  color: var(--matn);
+}
+
+/* Qidiruv va til */
+.bosh-ong {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.qidiruv {
+  background: var(--karta);
+  border: 1px solid var(--chegara);
+  color: var(--matn);
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+
+.til button {
+  background: transparent;
+  border: 1px solid var(--chegara);
+  color: var(--matn-och);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.til button.faol {
+  background: var(--karta-2);
+  color: var(--matn);
+}
+
+/* Qahramon bo'limi */
+.qahramon {
+  background: radial-gradient(600px 300px at 20% 20%, var(--karta-2), transparent),
+    linear-gradient(180deg, var(--karta), var(--fon));
+  border-bottom: 1px solid var(--chegara);
+}
+
+.qahramon-ich {
+  padding: 64px 0;
+}
+
+.nishon {
+  display: inline-block;
+  font-size: 13px;
+  color: var(--urgu);
+  border: 1px solid var(--chegara);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--karta);
+}
+
+.qahramon h1 {
+  font-size: 48px;
+  line-height: 1.15;
+  margin: 18px 0 12px;
+}
+
+.qahramon-matn {
+  color: var(--matn-och);
+  max-width: 600px;
+}
+
+.qahramon-tugmalar {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+/* Tugmalar */
+.tugma {
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.tugma-asosiy {
+  background: var(--urgu);
+  color: var(--matn);
+}
+
+.tugma-asosiy:hover {
+  background: var(--urgu-toq);
+  transform: translateY(-2px);
+}
+
+.tugma-ikkilamchi {
+  border: 1px solid var(--chegara);
+  color: var(--matn);
+  background: var(--karta);
+}
+
+/* Statistika */
+.qahramon-stat {
+  display: flex;
+  gap: 32px;
+  margin-top: 30px;
+}
+
+.qahramon-stat b {
+  display: block;
+  font-size: 20px;
+}
+
+.qahramon-stat span {
+  color: var(--matn-och);
+  font-size: 13px;
+}
+
+/* Bo'lim sarlavhalari */
+.bolim {
+  padding: 44px 0 0;
+}
+
+.bolim-bosh h2 {
+  font-size: 26px;
+}
+
+.bolim-bosh p {
+  color: var(--matn-och);
+  font-size: 14px;
+}
+
+.bolim-bosh.qator {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.havola {
+  color: var(--urgu);
+  text-decoration: none;
+}
+
+/* Kun tugmalari */
+.kunlar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 18px 0;
+}
+
+.kun {
+  background: var(--karta);
+  border: 1px solid var(--chegara);
+  color: var(--matn-och);
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.kun.faol {
+  background: var(--urgu);
+  border-color: var(--urgu);
+  color: var(--matn);
+}
+
+/* Jadval qatorlari */
+.jadval-royxat {
+  display: grid;
+  gap: 10px;
+}
+
+.jadval-qator {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--karta);
+  border: 1px solid var(--chegara);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+}
+
+.vaqt {
+  color: var(--urgu);
+  font-weight: 700;
+}
+
+.jadval-qator span {
+  display: block;
+  color: var(--matn-och);
+  font-size: 13px;
+}
+
+.holat {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 12px;
+  background: var(--karta-2);
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--chegara);
+}
+
+.eslatma {
+  color: var(--matn-och);
+  font-size: 13px;
+}
+
+/* Katalog panjarasi */
+.panjara {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.anime-karta {
+  background: var(--karta);
+  border: 1px solid var(--chegara);
+  border-radius: var(--radius);
+  padding: 12px;
+  transition: 0.25s;
+}
+
+.anime-karta:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--soya);
+}
+
+.anime-karta h3 {
+  font-size: 16px;
+  margin: 10px 4px 2px;
+}
+
+.anime-karta p {
+  font-size: 13px;
+  color: var(--matn-och);
+  margin: 0 4px 6px;
+}
+
+/* Muqova o'rniga gradientlar */
+.muqova {
+  height: 190px;
+  border-radius: 12px;
+  position: relative;
+}
+
+.muqova span {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 12px;
+  background: var(--fon);
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--chegara);
+}
+
+.muqova-1 { background: linear-gradient(135deg, #ff5c39, #7a2bff); }
+.muqova-2 { background: linear-gradient(135deg, #0ea5e9, #1e3a8a); }
+.muqova-3 { background: linear-gradient(135deg, #22c55e, #0f766e); }
+.muqova-4 { background: linear-gradient(135deg, #eab308, #b45309); }
+.muqova-5 { background: linear-gradient(135deg, #ec4899, #6d28d9); }
+.muqova-6 { background: linear-gradient(135deg, #64748b, #0f172a); }
+
+/* Haqida bo'limi */
+.haqida-ich {
+  background: var(--karta);
+  border: 1px solid var(--chegara);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+.haqida-ich p {
+  color: var(--matn-och);
+  margin: 10px 0;
+}
+
+.haqida-ich ul {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+}
+
+/* Footer */
+.sayt-oxir {
+  margin-top: 48px;
+  border-top: 1px solid var(--chegara);
+  background: var(--karta);
+}
+
+.oxir-ich {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 30px 0;
+}
+
+.oxir-ich b {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.oxir-ich a {
+  display: block;
+  color: var(--matn-och);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.oxir-ich p {
+  color: var(--matn-och);
+  font-size: 14px;
+}
+
+.muallif {
+  text-align: center;
+  color: var(--matn-och);
+  font-size: 13px;
+  padding: 14px;
+  border-top: 1px solid var(--chegara);
+}
+
+/* Mobil menyu */
+.mobil-menyu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background: var(--karta);
+  border-top: 1px solid var(--chegara);
+}
+
+.mobil-menyu a {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  color: var(--matn-och);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.mobil-menyu a.faol {
+  color: var(--urgu);
+}
+
+/* Kichik tugma */
+.tugma.kichik {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.tugma-xavf {
+  background: transparent;
+  border: 1px solid var(--urgu);
+  color: var(--urgu);
+}
+
+/* Foydalanuvchi bloki */
+#foydalanuvchiBlok {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.rol {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--chegara);
+}
+
+.rol-admin {
+  background: var(--urgu);
+  border-color: var(--urgu);
+  color: var(--matn);
+}
+
+.rol-user {
+  background: var(--karta-2);
+  color: var(--matn-och);
+}
+
+/* Admin qutisi va forma */
+.admin-quti {
+  background: var(--karta);
+  border: 1px solid var(--chegara);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.video-forma {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.video-forma input,
+.video-forma select,
+.video-forma textarea,
+.modal input {
+  background: var(--fon);
+  border: 1px solid var(--chegara);
+  color: var(--matn);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.forma-qator {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 12px;
+}
+
+.fayl-yuklash {
+  font-size: 13px;
+  color: var(--matn-och);
+}
+
+.karta-tugmalar {
+  display: flex;
+  gap: 8px;
+  margin: 8px 4px 4px;
+}
+
+.tavsif-qisqa {
+  min-height: 20px;
+}
+
+/* Modal oynalar */
+.modal-fon {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 16px;
+}
+
+.modal {
+  background: var(--karta);
+  border: 1px solid var(--chegara);
+  border-radius: var(--radius);
+  padding: 20px;
+  width: min(420px, 100%);
+  display: grid;
+  gap: 12px;
+}
+
+.modal.keng {
+  width: min(720px, 100%);
+}
+
+.modal-bosh {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tab {
+  background: transparent;
+  border: 1px solid var(--chegara);
+  color: var(--matn-och);
+  border-radius: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+
+.tab.faol {
+  background: var(--karta-2);
+  color: var(--matn);
+}
+
+.yopish {
+  background: transparent;
+  border: none;
+  color: var(--matn-och);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.modal form {
+  display: grid;
+  gap: 10px;
+}
+
+.xabar {
+  color: var(--urgu);
+  font-size: 13px;
+  min-height: 18px;
+}
+
+#playerVideo {
+  width: 100%;
+  border-radius: 12px;
+  background: #000;
+  max-height: 400px;
+}
+
+#playerYoutubeWrap iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 12px;
+  background: #000;
+}
+
+/* Prevyuli muqova — har qanday rasm videoga mo'ljallangan kichik thumbnail */
+.muqova.rasmli {
+  padding: 0;
+  overflow: hidden;
+  height: 190px;
+  aspect-ratio: 16 / 9;
+}
+
+.muqova.rasmli img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+}
+
+/* Admin prevyu ko'rik qutisi */
+.prevyu-quti {
+  background: var(--fon);
+  border: 1px dashed var(--chegara);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+#prevyuKorik {
+  display: none;
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+/* Foto-studiya */
+.studiya-ich {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  margin-top: 16px;
+  align-items: start;
+}
+
+.studiya-boshqaruv {
+  display: grid;
+  gap: 12px;
+}
+
+.kostyum-tanlov {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.kostyum-btn.faol {
+  background: var(--urgu);
+  border-color: var(--urgu);
+  color: var(--matn);
+}
+
+.slayder {
+  font-size: 13px;
+  color: var(--matn-och);
+  display: grid;
+  gap: 4px;
+}
+
+.slayder input,
+.slayder select {
+  width: 100%;
+}
+
+#stCanvas {
+  width: 100%;
+  max-width: 420px;
+  border-radius: var(--radius);
+  border: 1px solid var(--chegara);
+  background: #000;
+  justify-self: center;
+}
+
+/* Manga */
+#mangaAdmin {
+  margin-bottom: 20px;
+}
+
+#mangaSahifa {
+  width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #000;
+}
+
+#mangaPdf {
+  width: 100%;
+  height: 65vh;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--chegara);
+}
+
+.manga-boshqaruv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tarjima-sar {
+  font-size: 13px;
+  color: var(--urgu);
+  margin: 0 4px 6px;
+}
+
+/* Serial papkalari */
+#papkaKorinish {
+  margin-top: 20px;
+  display: grid;
+  gap: 12px;
+}
+
+#papkaKorinish h2 {
+  margin-top: 8px;
+}
+
+.qism-qator b {
+  display: block;
+}
+
+/* Player ostidagi QISM TANLASH paneli */
+#qismPanel {
+  display: grid;
+  gap: 10px;
+  background: var(--karta);
+  border: 1px solid var(--chegara);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.qism-sar {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--matn-och);
+}
+
+#qismHozir {
+  font-size: 15px;
+}
+
+#faslQator {
+  margin: 0;
+}
+
+.fasl-btn.faol {
+  background: var(--urgu);
+  border-color: var(--urgu);
+  color: #fff;
+}
+
+.qism-qidiruv input {
+  width: 100%;
+  background: var(--fon);
+  border: 1px solid var(--chegara);
+  color: var(--matn);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.qism-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.qism-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--karta-2);
+  border: 1px solid var(--chegara);
+  color: var(--matn);
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 13px;
+}
+
+.qism-btn .qplay {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--urgu);
+  font-size: 12px;
+}
+
+.qism-btn small {
+  display: block;
+  color: var(--matn-och);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.qism-btn b {
+  display: block;
+  font-size: 14px;
+}
+
+.qism-btn.faol {
+  background: var(--urgu);
+  border-color: var(--urgu);
+  color: #fff;
+}
+
+.qism-btn.faol small,
+.qism-btn.faol .qplay {
+  color: #fff;
+}
+
+/* ===== Dizayn yangilanishi: chiroyli ko'rinish ===== */
+
+/* Sahifa foni — yumshoq nurlar */
+body {
+  background:
+    radial-gradient(800px 400px at 85% -5%, rgba(255, 92, 57, 0.08), transparent),
+    radial-gradient(700px 380px at 5% 30%, rgba(122, 43, 255, 0.07), transparent),
+    var(--fon);
+}
+
+/* Bosh panel — shisha effekti */
+.sayt-bosh {
+  background: rgba(18, 19, 21, 0.85);
+  backdrop-filter: blur(12px);
+}
+
+.logotip {
+  letter-spacing: 0.5px;
+}
+
+.logotip span {
+  background: linear-gradient(135deg, var(--urgu), #ff9a3c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Navigatsiya */
+.navigatsiya a {
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.navigatsiya a:hover {
+  background: var(--karta-2);
+  color: var(--matn);
+}
+
+.navigatsiya a.faol {
+  background: var(--karta-2);
+  color: var(--urgu);
+}
+
+/* Qahramon — chuqur gradient + bezak */
+.qahramon {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(500px 260px at 85% 30%, rgba(255, 92, 57, 0.18), transparent),
+    radial-gradient(600px 300px at 20% 20%, var(--karta-2), transparent),
+    linear-gradient(180deg, var(--karta), var(--fon));
+}
+
+.qahramon-ich {
+  padding: 80px 0;
+}
+
+.nishon {
+  box-shadow: 0 0 20px rgba(255, 92, 57, 0.25);
+}
+
+.qahramon h1 {
+  text-wrap: balance;
+}
+
+.tugma {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.tugma:active {
+  transform: translateY(1px);
+}
+
+/* Statistika kartalari */
+.qahramon-stat > div {
+  background: var(--karta);
+  border: 1px solid var(--chegara);
+  border-radius: 12px;
+  padding: 10px 18px;
+}
+
+/* Bo'lim sarlavhasi — urg'u chizig'i */
+.bolim-bosh h2 {
+  border-left: 4px solid var(--urgu);
+  padding-left: 12px;
+}
+
+/* Kartalar */
+.anime-karta {
+  overflow: hidden;
+}
+
+.anime-karta:hover {
+  border-color: var(--urgu);
+}
+
+.muqova {
+  height: 200px;
+}
+
+.anime-karta h3 {
+  font-size: 17px;
+}
+
+/* Admin va forma */
+.video-forma input:focus,
+.video-forma select:focus,
+.video-forma textarea:focus,
+.modal input:focus,
+.qidiruv:focus,
+.qism-qidiruv input:focus {
+  outline: none;
+  border-color: var(--urgu);
+  box-shadow: 0 0 0 3px rgba(255, 92, 57, 0.2);
+}
+
+/* Alohida sahifa rejimi (player/kitob qutisi sahifada) */
+.modal.sahifa-quti {
+  width: 100%;
+  max-width: 940px;
+  box-shadow: var(--soya);
+}
+
+#tomoshaSahifaIch,
+#kitobSahifaIch {
+  display: grid;
+  margin-top: 14px;
+}
+
+#tomoshaSahifa .konteyner,
+#kitobSahifa .konteyner {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+}
+
+#tomoshaSahifaIch,
+#kitobSahifaIch {
+  width: 100%;
+  justify-items: stretch;
+}
+
+/* Chat */
+.chat-quti {
+  display: grid;
+  gap: 12px;
+}
+
+.chat-royxat {
+  display: grid;
+  gap: 10px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.chat-xabar {
+  background: var(--fon);
+  border: 1px solid var(--chegara);
+  border-radius: 12px;
+  padding: 10px 14px;
+  max-width: 85%;
+}
+
+.chat-xabar.meniki {
+  margin-left: auto;
+  border-color: var(--urgu);
+}
+
+.chat-xabar .kim {
+  font-size: 12px;
+  color: var(--matn-och);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.chat-xabar .matn {
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.chat-xabar .vaqt {
+  font-size: 11px;
+  color: var(--matn-och);
+  display: block;
+  margin-top: 4px;
+}
+
+.chat-xabar .ochirish {
+  background: none;
+  border: none;
+  color: var(--urgu);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0;
+}
+
+.chat-forma {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.chat-forma input {
+  background: var(--fon);
+  border: 1px solid var(--chegara);
+  color: var(--matn);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  width: 100%;
+}
+
+#mangaPapkaKorinish {
+  margin-top: 20px;
+  display: grid;
+  gap: 12px;
+}
+
+#googleMaydon {
+  display: grid;
+  gap: 10px;
+}
+
+#demoKod {
+  background: var(--fon);
+  border: 1px dashed var(--urgu);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  color: var(--matn);
+}
+
+/* Kichik ekranlar */
+@media (max-width: 800px) {
+  .navigatsiya { display: none; }
+  .qidiruv { width: 140px; }
+  .qahramon h1 { font-size: 32px; }
+  .panjara { grid-template-columns: repeat(2, 1fr); }
+  .oxir-ich { grid-template-columns: 1fr 1fr; }
+  .studiya-ich { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 500px) {
+  .panjara { grid-template-columns: 1fr; }
+  .qism-grid { grid-template-columns: repeat(3, 1fr); }
+  .qahramon-stat { gap: 18px; }
+  .forma-qator { grid-template-columns: 1fr; }
+  .bosh-ich { flex-wrap: wrap; }
+}
